@@ -1,7 +1,9 @@
 {
-  "name": "mssql-mcp-server",
-  "version": "1.0.0",
+  "name": "@launchscout/mssql-mcp-server",
+  "version": "0.0.1",
+  "description": "MCP (Model Context Protocol) server for Microsoft SQL Server database operations",
   "main": "dist/index.js",
+  "type": "module",
   "bin": {
     "mssql-mcp-server": "dist/index.js"
   },
@@ -14,6 +16,19 @@
   "files": [
     "dist"
   ],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "mssql",
+    "sql-server",
+    "database",
+    "ai",
+    "claude"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "devDependencies": {
     "@types/mssql": "^9.1.7",
     "@types/node": "^16.7.13",
@@ -25,6 +40,5 @@
     "@modelcontextprotocol/sdk": "^1.0.0",
     "dotenv": "^10.0.0",
     "mssql": "^11.0.1"
-  },
-  "type": "module"
+  }
 }

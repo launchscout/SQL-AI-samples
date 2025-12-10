@@ -31,19 +31,34 @@ This server leverages the Model Context Protocol (MCP), a versatile framework th
 ## Quick Start 🚀
 
 ### Prerequisites
-- Node.js 14 or higher
+- Node.js 18 or higher
 - Claude Desktop or VS Code with Agent extension
 
-### Set up project
+### Installation
 
-1. **Install Dependencies**  
-   Run the following command in the root folder to install all necessary dependencies:  
+The easiest way to use this MCP server is via `npx` - no installation required:
+
+```bash
+npx @launchscout/mssql-mcp-server
+```
+
+Or install globally:
+
+```bash
+npm install -g @launchscout/mssql-mcp-server
+mssql-mcp-server
+```
+
+### Building from Source
+
+If you want to build from source:
+
+1. **Install Dependencies**
    ```bash
    npm install
    ```
 
-2. **Build the Project**  
-   Compile the project by running:  
+2. **Build the Project**
    ```bash
    npm run build
    ```
@@ -64,13 +79,15 @@ This server leverages the Model Context Protocol (MCP), a versatile framework th
    ```json
    {
      "servers": {
-       "mssql-nodejs": {
+       "mssql": {
           "type": "stdio",
-          "command": "node",
-          "args": ["q:\\Repos\\SQL-AI-samples\\MssqlMcp\\Node\\dist\\index.js"],
+          "command": "npx",
+          "args": ["@launchscout/mssql-mcp-server"],
           "env": {
             "SERVER_NAME": "your-server-name.database.windows.net",
             "DATABASE_NAME": "your-database-name",
+            "SQL_USER": "your-username",
+            "SQL_PASSWORD": "your-password",
             "READONLY": "false"
           }
         }
@@ -84,23 +101,25 @@ This server leverages the Model Context Protocol (MCP), a versatile framework th
    - Click "Edit in settings.json"
    - Add the following configuration:
 
-  ```json
+   ```json
    {
-    "mcp": {
-        "servers": {
-            "mssql": {
-                "command": "node",
-                "args": ["C:/path/to/your/Node/dist/index.js"],
-                "env": {
-                "SERVER_NAME": "your-server-name.database.windows.net",
-                "DATABASE_NAME": "your-database-name",
-                "READONLY": "false"
-                }
-            }
-        }
-    }
-  }
-  ```
+     "mcp": {
+       "servers": {
+         "mssql": {
+           "command": "npx",
+           "args": ["@launchscout/mssql-mcp-server"],
+           "env": {
+             "SERVER_NAME": "your-server-name.database.windows.net",
+             "DATABASE_NAME": "your-database-name",
+             "SQL_USER": "your-username",
+             "SQL_PASSWORD": "your-password",
+             "READONLY": "false"
+           }
+         }
+       }
+     }
+   }
+   ```
 
 4. **Restart VS Code**
    - Close and reopen VS Code for the changes to take effect
@@ -117,17 +136,19 @@ This server leverages the Model Context Protocol (MCP), a versatile framework th
    - Open the `claude_desktop_config` file
 
 2. **Add MCP Server Configuration**
-   Replace the content with the configuration below, updating the path and credentials:
+   Replace the content with the configuration below, updating the credentials:
 
    ```json
    {
      "mcpServers": {
        "mssql": {
-         "command": "node",
-         "args": ["C:/path/to/your/Node/dist/index.js"],
+         "command": "npx",
+         "args": ["@launchscout/mssql-mcp-server"],
          "env": {
            "SERVER_NAME": "your-server-name.database.windows.net",
            "DATABASE_NAME": "your-database-name",
+           "SQL_USER": "your-username",
+           "SQL_PASSWORD": "your-password",
            "READONLY": "false"
          }
        }
@@ -142,8 +163,9 @@ This server leverages the Model Context Protocol (MCP), a versatile framework th
 
 - **SERVER_NAME**: Your MSSQL Database server name (e.g., `my-server.database.windows.net`)
 - **DATABASE_NAME**: Your database name
+- **SQL_USER**: Your SQL Server username
+- **SQL_PASSWORD**: Your SQL Server password
 - **READONLY**: Set to `"true"` to restrict to read-only operations, `"false"` for full access
-- **Path**: Update the path in `args` to point to your actual project location.
 - **CONNECTION_TIMEOUT**: (Optional) Connection timeout in seconds. Defaults to `30` if not set.
 - **TRUST_SERVER_CERTIFICATE**: (Optional) Set to `"true"` to trust self-signed server certificates (useful for development or when connecting to servers with self-signed certs). Defaults to `"false"`.
 
